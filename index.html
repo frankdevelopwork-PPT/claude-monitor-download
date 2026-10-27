@@ -284,10 +284,10 @@ details.first strong{color:var(--t1);font-weight:600}
 footer{border-top:1px solid var(--line);padding:var(--s6) 0 var(--s7);color:var(--t3);font-size:14px;letter-spacing:.04em}
 footer p{margin:0;display:flex;align-items:center;justify-content:center;gap:10px}
 /* nền chìm: huy hiệu FRANK DEVELOP thật mờ, đứng yên giữa màn hình, nằm dưới mọi nội dung */
-.page-mark{position:fixed;inset:0;z-index:-1;display:grid;place-items:center;pointer-events:none;opacity:.14}
+.page-mark{position:fixed;inset:0;z-index:-1;display:grid;place-items:center;overflow:hidden;pointer-events:none;opacity:.14}
 :root[data-theme="light"] .page-mark{opacity:.07}
 @media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .page-mark{opacity:.07}}
-.page-mark frank-badge{--size:min(80vmin,720px)!important}
+.page-mark frank-badge{--size:min(120vmin,1100px)!important}
 
 /* ---------- toast ---------- */
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:var(--t1);color:var(--bg);padding:10px 16px;border-radius:var(--r-m);font-size:14px;font-weight:500;pointer-events:none;transition:opacity .2s,transform .2s var(--ease);z-index:30}
@@ -546,7 +546,7 @@ body{--i-tq:var(--i-tq-d);--i-ngan:var(--i-ngan-d);--i-sd:var(--i-sd-d);--i-hd:v
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-<div class="page-mark" aria-hidden="true"><frank-badge size="720"></frank-badge></div>
+<div class="page-mark" aria-hidden="true"><frank-badge size="1100"></frank-badge></div>
 
 <script>
 (function () {
