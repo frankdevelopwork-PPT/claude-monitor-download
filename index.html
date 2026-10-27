@@ -11,11 +11,13 @@
 <script>
 /* =====================================================================
    CẤU HÌNH PHÁT HÀNH — bản sau chỉ cần sửa object này.
-   Tên tệp là đường dẫn tương đối, tệp cài nằm CÙNG thư mục với index.html.
+   Tệp cài nằm ở GitHub Releases của repo (tag = "v" + phiên bản); GitHub đếm lượt tải
+   từng tệp, trang đọc số đó qua API công khai và hiện lên.
    (HTML bên dưới có sẵn giá trị mặc định để trang vẫn tải được khi tắt JS;
    khi đổi phiên bản, nên sửa cả các giá trị đó, tìm theo "3.3.1".)
    ===================================================================== */
 window.RELEASE = {
+  repo: "frankdevelopwork-PPT/claude-monitor-download",
   version: "3.3.1",
   date: "22/10/2026",
   builds: {
@@ -155,6 +157,10 @@ html:not(.js) .theme-btn, html:not(.js) .lang-seg{display:none}
   background:radial-gradient(55% 45% at 50% 62%,var(--you-tint),transparent 70%),radial-gradient(35% 30% at 85% 10%,rgba(47,202,179,.07),transparent 70%)}
 .hero-copy{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--s5) var(--s7);align-items:end}
 .ver{display:inline-flex;align-items:center;gap:var(--s2);font-size:14px;color:var(--t2);border:1px solid var(--line2);border-radius:999px;padding:4px 12px 4px 8px;background:var(--tile)}
+.dl-total{color:var(--t1);font-weight:600}
+.dl-total::before{content:"·";margin:0 var(--s2);color:var(--t3);font-weight:400}
+.dl-count{margin:var(--s3) 0 0;font-size:14px;color:var(--t3);text-align:center}
+.dl-count b{color:var(--t1);font-weight:600}
 .ver .dot{width:8px;height:8px;border-radius:50%;background:var(--live);box-shadow:0 0 0 4px rgba(47,202,179,.18)}
 h1{font-size:clamp(36px,5.6vw,78px);line-height:1.02;letter-spacing:-.04em;font-weight:700;margin:var(--s5) 0 0;max-width:13ch;text-wrap:balance}
 .lede{font-size:clamp(17px,1.4vw,19px);color:var(--t2);max-width:40ch;margin:0 0 var(--s5);font-weight:300}
@@ -367,13 +373,13 @@ body{--i-tq:var(--i-tq-d);--i-ngan:var(--i-ngan-d);--i-sd:var(--i-sd-d);--i-hd:v
 <section class="hero" aria-labelledby="h-hero">
   <div class="wrap hero-copy">
     <div>
-      <span class="ver"><span class="dot" aria-hidden="true"></span><span data-i="ver">Bản <span data-r="version">3.3.1</span>, phát hành <span data-r="date">22/10/2026</span></span></span>
+      <span class="ver"><span class="dot" aria-hidden="true"></span><span data-i="ver">Bản <span data-r="version">3.3.1</span>, phát hành <span data-r="date">22/10/2026</span></span><span class="dl-total" id="dlTotal" hidden></span></span>
       <h1 id="h-hero" class="dual"><span lang="vi">Mọi phiên Claude Code, gọn trong một màn hình</span><span lang="en">Every Claude Code session, on one screen</span></h1>
     </div>
     <div>
       <p class="lede dual"><span lang="vi">Ứng dụng theo dõi mọi phiên Claude Code trên máy: phiên nào đang làm, phiên nào cần bạn trả lời, hạn mức còn bao nhiêu và đã dùng bao nhiêu token.</span><span lang="en">A desktop app that tracks every Claude Code session on your computer: which are working, which need your reply, how much quota is left and how many tokens you’ve used.</span></p>
       <div class="cta">
-        <a class="btn btn-main" id="heroCta" data-href="windows" href="./claude-monitor-3.3.1-setup.exe" download>
+        <a class="btn btn-main" id="heroCta" data-href="windows" href="https://github.com/frankdevelopwork-PPT/claude-monitor-download/releases/download/v3.3.1/claude-monitor-3.3.1-setup.exe" download>
           <svg aria-hidden="true"><use href="#i-dl"/></svg>
           <span data-i="ctaWin">Tải cho Windows<span class="sub"><span data-b="windows.file">claude-monitor-3.3.1-setup.exe</span>, khoảng&nbsp;<span data-b="windows.size">43&nbsp;MB</span></span></span>
         </a>
@@ -418,10 +424,11 @@ body{--i-tq:var(--i-tq-d);--i-ngan:var(--i-ngan-d);--i-sd:var(--i-sd-d);--i-hd:v
       <article class="dl" data-os="windows" aria-labelledby="h-win">
         <div class="dl-head"><svg aria-hidden="true"><use href="#i-win"/></svg><h3 id="h-win">Windows</h3></div>
         <p class="req" data-i="winReq">Windows 10 hoặc 11, 64-bit. Đọc được Claude Code chạy trực tiếp trên Windows và trong WSL.</p>
-        <a class="btn btn-main" data-href="windows" href="./claude-monitor-3.3.1-setup.exe" download>
+        <a class="btn btn-main" data-href="windows" href="https://github.com/frankdevelopwork-PPT/claude-monitor-download/releases/download/v3.3.1/claude-monitor-3.3.1-setup.exe" download>
           <svg aria-hidden="true"><use href="#i-dl"/></svg>
           <span data-i="dlWin">Tải cho Windows<span class="sub"><span class="file" data-b="windows.file">claude-monitor-3.3.1-setup.exe</span>, khoảng&nbsp;<span data-b="windows.size">43&nbsp;MB</span></span></span>
         </a>
+        <p class="dl-count" data-count="windows" hidden></p>
         <details class="first">
           <summary data-i="winSum">Mở lần đầu trên Windows</summary>
           <ol>
@@ -436,10 +443,11 @@ body{--i-tq:var(--i-tq-d);--i-ngan:var(--i-ngan-d);--i-sd:var(--i-sd-d);--i-hd:v
       <article class="dl" data-os="macos" aria-labelledby="h-mac">
         <div class="dl-head"><svg aria-hidden="true"><use href="#i-mac"/></svg><h3 id="h-mac">macOS</h3></div>
         <p class="req" data-i="macReq">macOS 12 trở lên. Một bản chạy cho cả Apple Silicon và Intel.</p>
-        <a class="btn btn-main" data-href="macos" href="./claude-monitor-3.3.1-macos.dmg" download>
+        <a class="btn btn-main" data-href="macos" href="https://github.com/frankdevelopwork-PPT/claude-monitor-download/releases/download/v3.3.1/claude-monitor-3.3.1-macos.dmg" download>
           <svg aria-hidden="true"><use href="#i-dl"/></svg>
           <span data-i="dlMac">Tải cho macOS<span class="sub"><span class="file" data-b="macos.file">claude-monitor-3.3.1-macos.dmg</span>, khoảng&nbsp;<span data-b="macos.size">62&nbsp;MB</span></span></span>
         </a>
+        <p class="dl-count" data-count="macos" hidden></p>
         <details class="first">
           <summary data-i="macSum">Mở lần đầu trên macOS</summary>
           <ol>
@@ -458,10 +466,11 @@ body{--i-tq:var(--i-tq-d);--i-ngan:var(--i-ngan-d);--i-sd:var(--i-sd-d);--i-hd:v
       <article class="dl" data-os="linux" aria-labelledby="h-lin">
         <div class="dl-head"><svg aria-hidden="true"><use href="#i-linux"/></svg><h3 id="h-lin">Linux</h3></div>
         <p class="req" data-i="linReq">Ubuntu 24.04 trở lên hoặc bản phân phối họ Debian, kiến trúc amd64.</p>
-        <a class="btn btn-main" data-href="linux" href="./claude-monitor_3.3.1_amd64.deb" download>
+        <a class="btn btn-main" data-href="linux" href="https://github.com/frankdevelopwork-PPT/claude-monitor-download/releases/download/v3.3.1/claude-monitor_3.3.1_amd64.deb" download>
           <svg aria-hidden="true"><use href="#i-dl"/></svg>
           <span data-i="dlLin">Tải cho Linux<span class="sub"><span class="file" data-b="linux.file">claude-monitor_3.3.1_amd64.deb</span>, khoảng&nbsp;<span data-b="linux.size">2&nbsp;MB</span></span></span>
         </a>
+        <p class="dl-count" data-count="linux" hidden></p>
         <div class="field">
           <div class="field-label"><span data-i="linCmd">Lệnh cài, chạy trong thư mục chứa tệp</span><button class="copy" type="button" data-copy="l-inst" data-i-a="copyLin" aria-label="Sao chép lệnh cài bản Linux"><svg aria-hidden="true"><use href="#i-copy"/></svg><span class="cl" data-i="copy">Sao chép</span></button></div>
           <code class="code" id="l-inst" data-tpl="sudo apt install ./{linux.file}">sudo apt install ./claude-monitor_3.3.1_amd64.deb</code>
@@ -545,11 +554,47 @@ body{--i-tq:var(--i-tq-d);--i-ngan:var(--i-ngan-d);--i-sd:var(--i-sd-d);--i-hd:v
   function bind() {
     doc.querySelectorAll("[data-r]").forEach(function (el) { if (R[el.dataset.r]) el.textContent = R[el.dataset.r]; });
     doc.querySelectorAll("[data-b]").forEach(function (el) { var v = get(el.dataset.b); if (v) el.textContent = String(v).replace(/ /g, " "); });
-    doc.querySelectorAll("[data-href]").forEach(function (el) { var b = R.builds[el.dataset.href]; if (b) el.setAttribute("href", "./" + b.file); });
+    var base = "https://github.com/" + R.repo + "/releases/download/v" + R.version + "/";
+    doc.querySelectorAll("[data-href]").forEach(function (el) { var b = R.builds[el.dataset.href]; if (b) el.setAttribute("href", base + b.file); });
+    renderCounts();
     doc.querySelectorAll("[data-tpl]").forEach(function (el) {
       el.textContent = el.dataset.tpl.replace(/\{([\w.]+)\}/g, function (m, p) { return get(p) || m; });
     });
   }
+
+  /* Số lượt tải: GitHub đếm lượt tải từng tệp trong Releases; cộng mọi phiên bản theo hệ điều hành.
+     Lỗi mạng hoặc quá giới hạn API (60 lần/giờ mỗi IP) thì ẩn đi, trang vẫn tải bình thường. */
+  var counts = null;
+  function osOf(name) { return /\.exe$/i.test(name) ? "windows" : /\.dmg$/i.test(name) ? "macos" : /\.deb$/i.test(name) ? "linux" : null; }
+  function fmtN(n) { return n.toLocaleString(root.lang === "en" ? "en-US" : "vi-VN"); }
+  function countText(n) {
+    return root.lang === "en" ? "<b>" + fmtN(n) + "</b> download" + (n === 1 ? "" : "s") : "<b>" + fmtN(n) + "</b> lượt tải";
+  }
+  function renderCounts() {
+    if (!counts) return;
+    doc.querySelectorAll("[data-count]").forEach(function (el) {
+      var n = counts[el.dataset.count] || 0; el.innerHTML = countText(n); el.hidden = false;
+    });
+    var total = doc.getElementById("dlTotal"); total.innerHTML = countText(counts.total); total.hidden = false;
+  }
+  function loadCounts() {
+    var KEY = "ccm-site-counts", c = null;
+    try { c = JSON.parse(sessionStorage.getItem(KEY) || "null"); } catch (e) {}
+    if (c && Date.now() - c.at < 10 * 60 * 1000) { counts = c; renderCounts(); return; }
+    if (!window.fetch) return;
+    fetch("https://api.github.com/repos/" + R.repo + "/releases?per_page=100", { headers: { Accept: "application/vnd.github+json" } })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (list) {
+        var n = { windows: 0, macos: 0, linux: 0, total: 0, at: Date.now() };
+        list.forEach(function (rel) { (rel.assets || []).forEach(function (a) {
+          var o = osOf(a.name); if (o) { n[o] += a.download_count || 0; n.total += a.download_count || 0; }
+        }); });
+        counts = n; renderCounts();
+        try { sessionStorage.setItem(KEY, JSON.stringify(n)); } catch (e) {}
+      })
+      .catch(function () {});
+  }
+  loadCounts();
 
   /* 2. Ngôn ngữ. Bản tiếng Việt lấy từ HTML tĩnh; bản tiếng Anh ở đây. */
   var dlSub = function (os, cls) {
