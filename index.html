@@ -580,7 +580,7 @@ body{--i-tq:var(--i-tq-d);--i-ngan:var(--i-ngan-d);--i-sd:var(--i-sd-d);--i-hd:v
   function loadCounts() {
     var KEY = "ccm-site-counts", c = null;
     try { c = JSON.parse(sessionStorage.getItem(KEY) || "null"); } catch (e) {}
-    if (c && Date.now() - c.at < 10 * 60 * 1000) { counts = c; renderCounts(); return; }
+    if (c && Date.now() - c.at < 60 * 1000) { counts = c; renderCounts(); return; }
     if (!window.fetch) return;
     fetch("https://api.github.com/repos/" + R.repo + "/releases?per_page=100", { headers: { Accept: "application/vnd.github+json" } })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
